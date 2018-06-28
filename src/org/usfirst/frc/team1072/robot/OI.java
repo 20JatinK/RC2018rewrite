@@ -42,9 +42,9 @@ public class OI {
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
-	public static GamepadWrapper gamepad = new GamepadWrapper(0);
+	public static GamepadWrapper controller = new GamepadWrapper(0);
 	
 	public static void initBindings() {
-				
+		
 	}
 }
