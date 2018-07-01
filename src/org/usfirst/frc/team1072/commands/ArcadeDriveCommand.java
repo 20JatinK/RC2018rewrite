@@ -27,20 +27,7 @@ public class ArcadeDriveCommand extends Command {
 			Robot.drivetrain.setBoth(ControlMode.Disabled,0);
 		}
 		else {
-			if (Math.abs(leftX) > Threshold && Math.abs(leftY) > Threshold) {
-				if (leftX < 0) {
-					Robot.drivetrain.setEach(ControlMode.PercentOutput, leftY*0.5, leftY);
-				}
-				else {
-					Robot.drivetrain.setEach(ControlMode.PercentOutput, leftY, leftY*0.5);
-				}
-			}
-			else if (Math.abs(leftX) > Threshold) {
-				Robot.drivetrain.setEach(ControlMode.PercentOutput,leftY,leftY);
-			}
-			else {
-				Robot.drivetrain.setEach(ControlMode.PercentOutput,leftX,-1*leftX);
-			}
+			Robot.drivetrain.setEach(ControlMode.Disabled, leftY + Math.pow(leftX, 3) / Math.abs(leftX), leftY - Math.pow(leftX, 3) / Math.abs(leftX));
 		}
 	}
 	
