@@ -3,6 +3,7 @@ package org.usfirst.frc.team1072.robot;
 import org.usfirst.frc.team1072.subsystems.Drivetrain;
 import org.usfirst.frc.team1072.robot.OI;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 public class Robot extends TimedRobot {
 
@@ -14,5 +15,9 @@ public class Robot extends TimedRobot {
 	
 	public void robotPeriodic() {
 		
+	}
+	
+	public void teleopPeriodic() {
+		Scheduler.getInstance().run();
 	}
 }
