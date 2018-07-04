@@ -25,6 +25,9 @@ public class Drivetrain extends Subsystem{
 		
 		leftVictor.follow(leftTalon);
 		rightVictor.follow(rightTalon);
+		
+		rightTalon.setInverted(true);
+		rightVictor.setInverted(true);
 	}
 	
 	@Override
@@ -33,13 +36,13 @@ public class Drivetrain extends Subsystem{
 	}
 	
 	public void setBoth(ControlMode mode, double value) {
-		Robot.drivetrain.leftTalon.set(mode, value);
-		Robot.drivetrain.rightTalon.set(mode, value);
+		Robot.drivetrain.getLeft().set(mode, value);
+		Robot.drivetrain.getRight().set(mode, value);
 	}
 	
 	public void setEach(ControlMode mode, double valueLeft, double valueRight) {
-		Robot.drivetrain.leftTalon.set(mode, valueLeft);
-		Robot.drivetrain.rightTalon.set(mode, valueRight);
+		Robot.drivetrain.getLeft().set(mode, valueLeft);
+		Robot.drivetrain.getRight().set(mode, valueRight);
 	}
 
 	public static Drivetrain getInstance() {
@@ -47,6 +50,14 @@ public class Drivetrain extends Subsystem{
 			instance = new Drivetrain();
 		}
 		return instance;
+	}
+	
+	public TalonSRX getLeft() {
+		return Robot.drivetrain.leftTalon;
+	}
+	
+	public TalonSRX getRight() {
+		return Robot.drivetrain.rightTalon;
 	}
 	
 }

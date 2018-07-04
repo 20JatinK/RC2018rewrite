@@ -22,18 +22,16 @@ public class ArcadeDriveCommand extends Command {
 		double leftX = OI.controller.getLeftX();
 		double leftY = OI.controller.getLeftY();
 		
-		//The rest of this is my attempt at making a solution to arcade drive, Joel's is probably better
 		if (Math.abs(leftX) < Threshold && Math.abs(leftY) < Threshold) {
 			Robot.drivetrain.setBoth(ControlMode.Disabled,0);
 		}
 		else {
-			Robot.drivetrain.setEach(ControlMode.Disabled, leftY + Math.pow(leftX, 3) / Math.abs(leftX), leftY - Math.pow(leftX, 3) / Math.abs(leftX));
+			Robot.drivetrain.setEach(ControlMode.PercentOutput, leftY + Math.pow(leftX, 3) / Math.abs(leftX), (leftY - Math.pow(leftX, 3) / Math.abs(leftX)));
 		}
 	}
 	
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	
