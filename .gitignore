@@ -1,2 +1,10 @@
 
 .classpath
+build/tmp/jar/MANIFEST.MF
+build/libs/RC2018rewrite.jar
+.gradle/buildOutputCleanup/outputFiles.bin
+.gradle/buildOutputCleanup/buildOutputCleanup.lock
+.gradle/4.4/taskHistory/taskHistory.lock
+.gradle/4.4/taskHistory/taskHistory.bin
+.gradle/4.4/fileHashes/fileHashes.lock
+.gradle/4.4/fileHashes/fileHashes.bin
