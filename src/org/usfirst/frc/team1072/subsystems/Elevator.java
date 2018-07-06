@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1072.subsystems;
 
+import org.usfirst.frc.team1072.commands.ElevatorVelocityCommand;
 import org.usfirst.frc.team1072.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -35,7 +36,7 @@ public class Elevator extends Subsystem {
 	
 	@Override
 	protected void initDefaultCommand() {
-		
+		setDefaultCommand(new ElevatorVelocityCommand());
 	}
 	
 	public static Elevator getInstance() {
