@@ -26,8 +26,11 @@ public class Drivetrain extends Subsystem{
 		leftVictor.follow(leftTalon);
 		rightVictor.follow(rightTalon);
 		
-		rightTalon.setInverted(true);
-		rightVictor.setInverted(true);
+		leftTalon.setInverted(true);
+		leftVictor.setInverted(true);
+		
+		rightTalon.setInverted(false);
+		rightTalon.setInverted(false);
 	}
 	
 	@Override
@@ -60,4 +63,8 @@ public class Drivetrain extends Subsystem{
 		return Robot.drivetrain.rightTalon;
 	}
 	
+	public void driveToPosition(int position) {
+		getLeft().set(ControlMode.Position, position);
+		getRight().set(ControlMode.Position, position);
+	}
 }
