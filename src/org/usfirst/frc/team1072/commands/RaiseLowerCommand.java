@@ -10,13 +10,15 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 public class RaiseLowerCommand extends Command {
 	
 	private DoubleSolenoid.Value value;
+	private boolean isExecuted;
 	
 	public RaiseLowerCommand() {
 		requires(Robot.intake);
 	}
 	
 	protected void initialize() {
-value = Robot.intake.getRaiseLower().get();
+		isExecuted = false;
+		value = Robot.intake.getRaiseLower().get();
 		
 		if (value == DoubleSolenoid.Value.kForward) {
 			Robot.intake.getRaiseLower().set(DoubleSolenoid.Value.kReverse);
@@ -26,10 +28,13 @@ value = Robot.intake.getRaiseLower().get();
 		}
 	}
 	
+	protected void execute() {
+		isExecuted = true;
+	}
 	
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return isExecuted;
 	}
 	
 	protected void isInterrupted() {
