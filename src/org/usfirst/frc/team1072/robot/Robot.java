@@ -2,6 +2,7 @@ package org.usfirst.frc.team1072.robot;
 
 import org.usfirst.frc.team1072.subsystems.Drivetrain;
 import org.usfirst.frc.team1072.subsystems.Elevator;
+import org.usfirst.frc.team1072.subsystems.Intake;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
@@ -14,6 +15,7 @@ public class Robot extends TimedRobot {
 
 	public static final Drivetrain drivetrain = Drivetrain.getInstance();
 	public static final Elevator elevator = Elevator.getInstance();
+	public static final Intake intake = Intake.getInstance();
 	
 	public void robotInit() {
 		OI.initBindings();

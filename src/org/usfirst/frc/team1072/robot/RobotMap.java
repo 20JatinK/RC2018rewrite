@@ -35,4 +35,9 @@ public class RobotMap {
 		public static int TALON = 9, VICTOR_TOPLEFT = 7, VICTOR_BOTTOMLEFT = 8, VICTOR_TOPRIGHT = 10;
 		
 	}
+	
+	public static class Intake {
+		public static int LEFT_TALON = 6, RIGHT_TALON = 1;
+		public static final int lowerChannel = 1, raiseChannel = 3, compChannel = 0, decompChannel = 2;
+	}
 }

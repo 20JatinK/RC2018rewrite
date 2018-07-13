@@ -8,7 +8,10 @@
 
 package org.usfirst.frc.team1072.robot;
 
+import org.usfirst.frc.team1072.commands.RaiseLowerCommand;
 import org.usfirst.frc.team1072.harkerrobolib.wrappers.GamepadWrapper;
+
+import edu.wpi.first.wpilibj.buttons.Button;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -45,6 +48,6 @@ public class OI {
 	public static GamepadWrapper controller = new GamepadWrapper(0);
 	
 	public static void initBindings() {
-		
+		controller.getButtonY().whenPressed(new RaiseLowerCommand());
 	}
 }
