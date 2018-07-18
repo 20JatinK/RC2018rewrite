@@ -26,14 +26,13 @@ public class ElevatorVelocityCommand extends Command {
 		double vel = OI.controller.getRightY();
 		int encoder = Robot.elevator.getTalon().getSelectedSensorPosition(0);
 		
-		if (encoder >= lowerLimit && encoder <= upperLimit)
-		{
+//		if (encoder >= lowerLimit && encoder <= upperLimit)
+//		{
 			Robot.elevator.getTalon().set(ControlMode.PercentOutput, vel);
-		}
-		else
-		{
-			Robot.elevator.getTalon().set(ControlMode.Position, Math.max(encoder - 250, 0));
-		}
+//		}
+//		else
+//		{
+//		}
 		
 	}
 	
@@ -42,7 +41,7 @@ public class ElevatorVelocityCommand extends Command {
 	}
 	
 	protected void isInterrupted() {
-		Robot.elevator.getTalon().set(ControlMode.Position, 0);
+		Robot.elevator.getTalon().set(ControlMode.Disabled, 0);
 		Robot.elevator.getTalon().set(ControlMode.Disabled, 0);
 		//May need to change if more commands
 	}

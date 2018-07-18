@@ -10,19 +10,19 @@ public class RobotMap {
 		
 		int timeout = 10;
 		
-		static boolean invertedEncoders = true;
+		static boolean invertedEncoders = false;
 		
-		int positionPIDSlot = 0;
-		int velocityPIDSlot = 1;
+		static int positionPIDSlot = 0;
+		static int velocityPIDSlot = 1;
 		
-		static double position_kP_Left = 0.11;
-		static double position_kP_Right = 0.11;
+		static double position_kP_Left = 0.20;
+		static double position_kP_Right = 0.19;
 		
-		static double position_kI_Left = 0;
-		static double position_kI_Right = 0;
+		static double position_kI_Left = 0.001;
+		static double position_kI_Right = 0.001;
 		
-		static double position_kD_Left = 0;
-		static double position_kD_Right = 0;
+		static double position_kD_Left = 30;
+		static double position_kD_Right = 30;
 		
 		static double position_kF_Left = 0;
 		static double position_kF_Right = 0;
@@ -39,5 +39,6 @@ public class RobotMap {
 	public static class Intake {
 		public static int LEFT_TALON = 6, RIGHT_TALON = 1;
 		public static final int lowerChannel = 1, raiseChannel = 3, compChannel = 0, decompChannel = 2;
+		public static final int compressorChannel = 0;
 	}
 }

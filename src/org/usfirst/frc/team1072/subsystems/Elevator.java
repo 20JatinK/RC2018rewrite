@@ -25,9 +25,9 @@ public class Elevator extends Subsystem {
 		topLeftVictor.follow(talon);
 		topRightVictor.follow(talon);
 		
-		topLeftVictor.setInverted(true);
-		topRightVictor.setInverted(true);
-		//Ask how elevator talons are setup (do I need to invert some of them or not?)
+		bottomLeftVictor.setInverted(true);
+		topLeftVictor.setInverted(false);
+		topRightVictor.setInverted(false);
 	}
 	
 	public TalonSRX getTalon() {

@@ -62,6 +62,9 @@ public class Robot extends TimedRobot {
 		
 		drivetrain.getLeft().configPeakOutputReverse(-1, 10);
 		drivetrain.getRight().configPeakOutputReverse(-1, 10);
+		
+		drivetrain.getLeft().config_IntegralZone(RobotMap.Drivetrain.positionPIDSlot, 250, 10);
+		drivetrain.getRight().config_IntegralZone(RobotMap.Drivetrain.positionPIDSlot, 250, 10);
 	}
 	
 	public void teleopPeriodic() {
@@ -77,6 +80,6 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Left error", errorLeft);
 		SmartDashboard.putNumber("Right error", errorRight);
 		
-		drivetrain.driveToPosition(1000);
+//		drivetrain.driveToPosition(15000);
 	}
 }
