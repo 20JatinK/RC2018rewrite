@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
 		drivetrain.getRight().configPeakOutputForward(RobotMap.Drivetrain.PEAK_OUTPUT_RIGHT, RobotMap.TIMEOUT);
 		
 		drivetrain.getLeft().configPeakOutputReverse(-RobotMap.Drivetrain.PEAK_OUTPUT_LEFT, RobotMap.TIMEOUT);
-		drivetrain.getRight().configPeakOutputReverse(-RobotMap.Drivetrain.NOMINAL_OUTPUT_RIGHT, RobotMap.TIMEOUT);
+		drivetrain.getRight().configPeakOutputReverse(-RobotMap.Drivetrain.PEAK_OUTPUT_RIGHT, RobotMap.TIMEOUT);
 		
 		drivetrain.getLeft().config_IntegralZone(RobotMap.Drivetrain.positionPIDSlot, RobotMap.Drivetrain.position_iZone_Left, RobotMap.TIMEOUT);
 		drivetrain.getRight().config_IntegralZone(RobotMap.Drivetrain.positionPIDSlot, RobotMap.Drivetrain.position_iZone_Right, RobotMap.TIMEOUT);
