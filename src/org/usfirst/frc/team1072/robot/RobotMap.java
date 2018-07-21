@@ -2,6 +2,9 @@ package org.usfirst.frc.team1072.robot;
 
 public class RobotMap {
 	
+    public static int PRIMARY_PID_LOOP = 0;
+    public static int AUXILIARY_PID_LOOP = 0;
+    public static int TIMEOUT = 10;
 	public static class Drivetrain {
 		/**
 		 * 4 Cim motors, 2 per gearbox run the drivetrain
@@ -26,6 +29,14 @@ public class RobotMap {
 		
 		static double position_kF_Left = 0;
 		static double position_kF_Right = 0;
+		
+		public static int position_iZone_Left = 250;
+	    public static int position_iZone_Right = 250;
+	    
+	    public static double NOMINAL_OUTPUT_LEFT = 0.04;
+	    public static double NOMINAL_OUTPUT_RIGHT = 0.04;
+	    public static double PEAK_OUTPUT_LEFT = 1;
+	    public static double PEAK_OUTPUT_RIGHT = 1;
 	}
 	
 	public static class Elevator {
