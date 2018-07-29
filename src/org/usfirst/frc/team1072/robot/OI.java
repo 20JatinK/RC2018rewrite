@@ -8,6 +8,7 @@
 
 package org.usfirst.frc.team1072.robot;
 
+import org.usfirst.frc.team1072.commands.CompDecompCommand;
 import org.usfirst.frc.team1072.commands.RaiseLowerCommand;
 import org.usfirst.frc.team1072.harkerrobolib.wrappers.GamepadWrapper;
 
@@ -49,5 +50,6 @@ public class OI {
 	
 	public static void initBindings() {
 		controller.getButtonY().whenPressed(new RaiseLowerCommand());
+		controller.getButtonX().whenPressed(new CompDecompCommand());
 	}
 }

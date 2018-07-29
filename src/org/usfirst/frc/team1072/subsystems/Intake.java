@@ -25,8 +25,7 @@ public class Intake extends Subsystem {
 		raiseAndLower = new DoubleSolenoid(RobotMap.Intake.raiseChannel, RobotMap.Intake.lowerChannel);
 		compAndDecomp = new DoubleSolenoid(RobotMap.Intake.compChannel, RobotMap.Intake.decompChannel);
 		
-		raiseAndLower.set(DoubleSolenoid.Value.kReverse);
-		//ask about closed loop
+		raiseAndLower.set(DoubleSolenoid.Value.kForward);
 	}
 	
 	public TalonSRX getLeftTalon() {

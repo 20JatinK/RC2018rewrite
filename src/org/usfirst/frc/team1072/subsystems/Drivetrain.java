@@ -35,7 +35,7 @@ public class Drivetrain extends Subsystem{
 	
 	@Override
 	public void initDefaultCommand() {
-//		setDefaultCommand(new ArcadeDriveCommand());
+		setDefaultCommand(new ArcadeDriveCommand());
 	}
 	
 	public void setBoth(ControlMode mode, double value) {

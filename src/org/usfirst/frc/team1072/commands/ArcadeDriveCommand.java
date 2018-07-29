@@ -14,10 +14,6 @@ public class ArcadeDriveCommand extends Command {
 		requires(Robot.drivetrain);
 	}
 	
-	protected void initialize() {
-		
-	}
-	
 	protected void execute() {
 		double leftX = OI.controller.getLeftX();
 		double leftY = OI.controller.getLeftY() * -1;
@@ -26,7 +22,7 @@ public class ArcadeDriveCommand extends Command {
 			Robot.drivetrain.setBoth(ControlMode.Disabled,0);
 		}
 		else {
-//			Robot.drivetrain.setEach(ControlMode.PercentOutput, leftY + Math.pow(leftX, 3) / Math.abs(leftX), (leftY - Math.pow(leftX, 3) / Math.abs(leftX)));
+			Robot.drivetrain.setEach(ControlMode.PercentOutput, leftY + Math.pow(leftX, 3) / Math.abs(leftX), (leftY - Math.pow(leftX, 3) / Math.abs(leftX)));
 		}
 	}
 	

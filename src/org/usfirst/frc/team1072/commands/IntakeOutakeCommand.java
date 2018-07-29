@@ -13,10 +13,6 @@ public class IntakeOutakeCommand extends Command {
 		requires(Robot.intake);
 	}
 	
-	protected void initialize() {
-
-	}
-	
 	protected void execute() {
 		if (OI.controller.getRightTriggerPressed()) {
 			Robot.intake.getLeftTalon().set(ControlMode.PercentOutput, OI.controller.getRightTrigger());
