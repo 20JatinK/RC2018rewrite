@@ -22,7 +22,9 @@ public class ArcadeDriveCommand extends Command {
 			Robot.drivetrain.setBoth(ControlMode.Disabled,0);
 		}
 		else {
-			Robot.drivetrain.setEach(ControlMode.PercentOutput, leftY + Math.pow(leftX, 3) / Math.abs(leftX), (leftY - Math.pow(leftX, 3) / Math.abs(leftX)));
+			Robot.drivetrain.setEach(ControlMode.PercentOutput, 
+									leftY + Math.pow(leftX, 3) / Math.abs(leftX), 
+									leftY - Math.pow(leftX, 3) / Math.abs(leftX));
 		}
 	}
 	

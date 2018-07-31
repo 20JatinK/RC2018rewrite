@@ -18,12 +18,12 @@ public class Intake extends Subsystem {
 	private Compressor compressor;
 	
 	private Intake() {
-		left = new TalonSRX(RobotMap.Intake.LEFT_TALON);
-		right = new TalonSRX(RobotMap.Intake.RIGHT_TALON);
-		compressor = new Compressor(RobotMap.Intake.compressorChannel);
+		left = new TalonSRX(RobotMap.Intake.LEFT_TALON_ID);
+		right = new TalonSRX(RobotMap.Intake.RIGHT_TALON_ID);
+		compressor = new Compressor(RobotMap.Intake.COMPRESSOR_CHANNEL);
 		
-		raiseAndLower = new DoubleSolenoid(RobotMap.Intake.raiseChannel, RobotMap.Intake.lowerChannel);
-		compAndDecomp = new DoubleSolenoid(RobotMap.Intake.compChannel, RobotMap.Intake.decompChannel);
+		raiseAndLower = new DoubleSolenoid(RobotMap.Intake.RAISE_CHANNEL, RobotMap.Intake.LOWER_CHANNEL);
+		compAndDecomp = new DoubleSolenoid(RobotMap.Intake.COMP_CHANNEL, RobotMap.Intake.DECOMP_CHANNEL);
 		
 		raiseAndLower.set(DoubleSolenoid.Value.kForward);
 	}
@@ -56,4 +56,10 @@ public class Intake extends Subsystem {
 		return instance;
 	}
 
+	public void configVoltageComp() {
+		getLeftTalon().configVoltageCompSaturation(RobotMap.VOLT_COMP, RobotMap.TIMEOUT);
+		getRightTalon().configVoltageCompSaturation(RobotMap.VOLT_COMP, RobotMap.TIMEOUT);
+		getLeftTalon().enableVoltageCompensation(true); 
+		getRightTalon().enableVoltageCompensation(true);
+	}
 }

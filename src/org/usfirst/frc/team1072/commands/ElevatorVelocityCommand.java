@@ -17,9 +17,9 @@ public class ElevatorVelocityCommand extends Command {
 	}
 	
 	protected void execute() {
-		double vel = OI.controller.getRightY();
+		double rightY = OI.controller.getRightY();
 		
-		Robot.elevator.getTalon().set(ControlMode.PercentOutput, vel, DemandType.ArbitraryFeedForward, RobotMap.Elevator.ARB_FEED_FORWARD);
+		Robot.elevator.getTalon().set(ControlMode.PercentOutput, rightY, DemandType.ArbitraryFeedForward, RobotMap.Elevator.ARB_FEED_FORWARD);
 	}
 	
 	protected boolean isFinished() {
