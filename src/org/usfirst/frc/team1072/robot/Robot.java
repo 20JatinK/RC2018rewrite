@@ -33,15 +33,12 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		
-		double dtLeftVelocity = Robot.drivetrain.getLeft().getSelectedSensorPosition(0)/System.currentTimeMillis() * 100;
-		double dtRightVelocity = Robot.drivetrain.getRight().getSelectedSensorPosition(0)/System.currentTimeMillis()  * 100;
-		int errorLeft = Robot.drivetrain.getLeft().getClosedLoopError(0);
-		int errorRight = Robot.drivetrain.getRight().getClosedLoopError(0);
+		double current = Robot.elevator.getTalon().getOutputCurrent();
+		int error = Robot.elevator.getTalon().getClosedLoopError(0);
 		
-		SmartDashboard.putNumber("Left", dtLeftVelocity);
-		SmartDashboard.putNumber("Right", dtRightVelocity);
-		SmartDashboard.putNumber("Left error", errorLeft);
-		SmartDashboard.putNumber("Right error", errorRight);
+		SmartDashboard.putNumber("Error", error);
+		SmartDashboard.putNumber("Current", current);
+		
 	}
 	
 	public void defaultInit() {
@@ -51,9 +48,12 @@ public class Robot extends TimedRobot {
 		drivetrain.configNominalOutput();
 		drivetrain.configPeakOutput();
 		
+		elevator.configVictors();
 		elevator.configureVoltageComp();
 		elevator.configureEncoder();
 		elevator.configureSoftLimits();
+		elevator.configureCurrentLimits();
+		elevator.configurePID();
 		
 		intake.configVoltageComp();
 	}

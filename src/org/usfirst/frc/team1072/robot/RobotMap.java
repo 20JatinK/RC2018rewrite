@@ -14,6 +14,10 @@ public class RobotMap {
 		
 		public static final boolean INVERTED_ENCODERS = false;
 		
+		public static final int MAX_DRIVE_VELOCITY = 6; //ft per s
+		
+		public static final double WHEEL_DIAMETER = 3.95; //in
+		
 		public static final int POSITION_PID_SLOT = 0;
 		public static final int VELOCITY_PID_SLOT = 1;
 		
@@ -61,10 +65,34 @@ public class RobotMap {
 		 */
 		public static final int TALON_ID = 9, VICTOR_TOPLEFT_ID = 7, VICTOR_BOTTOMLEFT_ID = 8, VICTOR_TOPRIGHT_ID = 10;
 		
+		public static final int VELOCITY_PID_SLOT = 0;
+		public static final int MOTION_MAGIC_SLOT = 1;
+		
+		
+		public static final double VELOCITY_KF = 0.54;
+		
+		public static final double MOTION_MAGIC_KF = 0.54;
+		public static final double MOTION_MAGIC_KP = 0.1;
+		public static final double MOTION_MAGIC_KI = 0.0001;
+		public static final double MOTION_MAGIC_KD = 18;
+		
+		public static final double VOLTAGE_RAMP_RATE = 0.75; //seconds
+		
 		public static final int MAX_HEIGHT = 20000;
-		public static final int MIN_HEIGHT = 500;
+		public static final int MIN_HEIGHT = 2000;
 		
 		public static final double ARB_FEED_FORWARD = 0.15;
+		
+		public static final int MAX_VELOCITY = 1; //ft per s, maximum is 2.5
+		public static final double SPROCKET_DIAMETER = 1.433; //in
+
+		public static final int CURRENT_PEAK_LIMIT = 10;
+		public static final int CURRENT_PEAK_DURATION = 40; //ms
+		public static final int CURRENT_CONTINUOUS_LIMIT = 5;
+
+		public static final int MOTION_MAGIC_CRUISE_VEL = 650;
+
+		public static final int MOTION_MAGIC_ACCEL = 2250;
 	}
 	
 	public static class Intake {
