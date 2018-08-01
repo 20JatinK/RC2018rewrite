@@ -6,8 +6,12 @@ import org.usfirst.frc.team1072.robot.OI;
 
 import com.ctre.phoenix.motorcontrol.ControlMode; 
 
+/**
+ * Command to control the Intake's rollers with the triggers
+ * 
+ * The left trigger is for in-taking and the right trigger is for out-taking
+ */
 public class IntakeOutakeCommand extends Command {
-	
 	
 	public IntakeOutakeCommand() {
 		requires(Robot.intake);

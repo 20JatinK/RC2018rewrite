@@ -34,3 +34,6 @@ build/libs/RC2018rewrite.jar
 hs_err_pid*
 /bin/
 *.class
+.classpath
+*.class
+dist/FRCUserProgram.jar

@@ -9,11 +9,11 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Command to drive the robot to a position using Position PID
  */
-public class DriveToPositionCommand extends Command {
+public class DrivetrainPositionCommand extends Command {
 
-    public DriveToPositionCommand() {
+    public DrivetrainPositionCommand() {
         requires(Robot.drivetrain);
     }
 

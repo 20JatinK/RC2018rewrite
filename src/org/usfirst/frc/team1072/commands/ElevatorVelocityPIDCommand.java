@@ -10,7 +10,7 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Command to run the elevator at a velocity controlled by the right Joystick using Velocity PID
  */
 public class ElevatorVelocityPIDCommand extends Command {
 

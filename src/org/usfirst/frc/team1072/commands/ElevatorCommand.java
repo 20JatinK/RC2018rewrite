@@ -10,9 +10,12 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ElevatorVelocityCommand extends Command {
+/**
+ * Command to run the elevator at a velocity controlled by the right Joystick without closed looping
+ */
+public class ElevatorCommand extends Command {
 
-	public ElevatorVelocityCommand() {
+	public ElevatorCommand() {
 		requires(Robot.elevator);
 	}
 	

@@ -6,6 +6,9 @@ import org.usfirst.frc.team1072.robot.OI;
 
 import com.ctre.phoenix.motorcontrol.ControlMode; 
 
+/**
+ * Command to control drivetrain using the left Joystick without closed looping
+ */
 public class ArcadeDriveCommand extends Command {
 
 	private static double Threshold = 0.1;
@@ -23,8 +26,8 @@ public class ArcadeDriveCommand extends Command {
 		}
 		else {
 			Robot.drivetrain.setEach(ControlMode.PercentOutput, 
-									leftY + Math.pow(leftX, 3) / Math.abs(leftX), 
-									leftY - Math.pow(leftX, 3) / Math.abs(leftX));
+									leftY + Math.pow(leftX, 2) * Math.signum(leftX), 
+									leftY - Math.pow(leftX, 2) * Math.signum(leftX));
 		}
 	}
 	

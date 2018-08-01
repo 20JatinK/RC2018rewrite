@@ -1,24 +1,24 @@
 package org.usfirst.frc.team1072.commands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team1072.robot.Robot;
-import org.usfirst.frc.team1072.robot.OI;
 
-import com.ctre.phoenix.motorcontrol.ControlMode; 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 
-public class RaiseLowerCommand extends Command {
-	
+/**
+ * Command to toggle whether the intake is raised or flat
+ */
+public class RaiseLowerCommand extends InstantCommand {
+
 	private DoubleSolenoid.Value value;
-	private boolean isExecuted;
 	
-	public RaiseLowerCommand() {
+    public RaiseLowerCommand() {
+        super();
 		requires(Robot.intake);
-	}
-	
-	protected void initialize() {
-		isExecuted = false;
-		value = Robot.intake.getRaiseLower().get();
+    }
+
+    protected void initialize() {
+    	value = Robot.intake.getRaiseLower().get();
 		
 		if (value == DoubleSolenoid.Value.kForward) {
 			Robot.intake.getRaiseLower().set(DoubleSolenoid.Value.kReverse);
@@ -26,23 +26,6 @@ public class RaiseLowerCommand extends Command {
 		else {
 			Robot.intake.getRaiseLower().set(DoubleSolenoid.Value.kForward);
 		}
-	}
-	
-	protected void execute() {
-		isExecuted = true;
-	}
-	
-	@Override
-	protected boolean isFinished() {
-		return isExecuted;
-	}
-	
-	protected void isInterrupted() {
-
-	}
-	
-	protected void end() {
-
-	}
+    }
 
 }
