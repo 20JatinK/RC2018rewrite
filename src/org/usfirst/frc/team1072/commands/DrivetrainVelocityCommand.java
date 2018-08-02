@@ -3,6 +3,7 @@ package org.usfirst.frc.team1072.commands;
 import org.usfirst.frc.team1072.robot.OI;
 import org.usfirst.frc.team1072.robot.Robot;
 import org.usfirst.frc.team1072.robot.RobotMap;
+import org.usfirst.frc.team1072.robot.RobotMap.Conversions;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
@@ -30,10 +31,9 @@ public class DrivetrainVelocityCommand extends Command {
 		double leftY = OI.controller.getLeftY();
 		double leftXSquared = Math.pow(leftX, 2) * Math.signum(leftX);
 		
-		double multiplier = RobotMap.Drivetrain.MAX_DRIVE_VELOCITY;
-		multiplier *= 0.1; //ft per 100 ms 
-		multiplier /= (RobotMap.Drivetrain.WHEEL_DIAMETER / 12.0 * Math.PI); //rotations per 100ms
-		multiplier *= 4096; //ticks per 100ms
+		double multiplier = Conversions.ftPerSToTicksPer100Ms(
+								RobotMap.Drivetrain.MAX_DRIVE_VELOCITY, 
+								RobotMap.Drivetrain.WHEEL_DIAMETER);
 		
 		double leftTargetVelocity = multiplier * (leftY + leftXSquared);
 		double rightTargetVelocity = multiplier * (leftY - leftXSquared);

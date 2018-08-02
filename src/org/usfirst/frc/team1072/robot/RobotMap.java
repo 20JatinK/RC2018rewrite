@@ -81,9 +81,9 @@ public class RobotMap {
 	    public static final double PEAK_OUTPUT_RIGHT = 1;
 	    
 	    /**
-	     * Maximum distance (in encoder units) robot can drive away from starting point
+	     * Maximum distance (in feet) robot can drive away from starting point
 	     */
-	    public static final int MAX_DISTANCE_FOR_POSITION_PID = 10000;
+	    public static final double MAX_DISTANCE_FOR_POSITION_PID = 2.5;
 	}
 	
 	/**
@@ -170,5 +170,38 @@ public class RobotMap {
 		
 		public static final int LOWER_CHANNEL = 1, RAISE_CHANNEL = 3, COMP_CHANNEL = 0, DECOMP_CHANNEL = 2;
 		public static final int COMPRESSOR_CHANNEL = 0;
+	}
+	
+	/**
+	 * Class with methods of conversions
+	 */
+	public static class Conversions {
+		
+		/**
+		 * Method to convert feet to encoder units
+		 * 
+		 * @param feet The distance in feet to be converted to encoder units
+		 * @param wheelDiameter The diameter in inches of the wheels which the encoder corresponds to
+		 * @return The number of encoder units in the given amount of feet
+		 */
+		public static double feetToTicks(double feet, double wheelDiameter) {
+			double ticks = feet;
+			ticks /= wheelDiameter / 12.0 * Math.PI; //feet to rotations
+			ticks *= 4096; //rotations to ticks
+			return ticks;
+		}
+		
+		/**
+		 * Method to convert ft/s into ticks/100ms
+		 * 
+		 * @param ftPerS
+		 * @param wheelDiameter The diameter in inches of the wheels which the encoder corresponds to 
+		 * @return
+		 */
+		public static double ftPerSToTicksPer100Ms(double ftPerS, double wheelDiameter) {
+			double ticksPer100Ms = feetToTicks(ftPerS, wheelDiameter); //ft/s to ticks/s
+			ticksPer100Ms *= 0.1; //ticks/s to ticks/100ms
+			return ticksPer100Ms;
+		}
 	}
 }

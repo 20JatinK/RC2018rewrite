@@ -1,8 +1,7 @@
 package org.usfirst.frc.team1072.subsystems;
 
 import org.usfirst.frc.team1072.commands.ElevatorMotionMagicCommand;
-import org.usfirst.frc.team1072.commands.ElevatorCommand;
-import org.usfirst.frc.team1072.commands.ElevatorVelocityPIDCommand;
+import org.usfirst.frc.team1072.commands.ElevatorVelocityCommand;
 import org.usfirst.frc.team1072.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -39,7 +38,7 @@ public class Elevator extends Subsystem {
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new ElevatorVelocityPIDCommand());
+		setDefaultCommand(new ElevatorVelocityCommand());
 	}
 	
 	/**

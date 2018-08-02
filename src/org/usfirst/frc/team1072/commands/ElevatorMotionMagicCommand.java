@@ -1,8 +1,8 @@
 package org.usfirst.frc.team1072.commands;
 
-import org.usfirst.frc.team1072.robot.OI;
 import org.usfirst.frc.team1072.robot.Robot;
 import org.usfirst.frc.team1072.robot.RobotMap;
+import org.usfirst.frc.team1072.robot.RobotMap.Conversions;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
@@ -14,16 +14,17 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ElevatorMotionMagicCommand extends Command {
 
-	private int targetPos;
+	private double targetPos;
 	
 	/**
-	 * Command to run the elevator at a velocity using Motion Magic
+	 * Command to set the Elevator to a position using Motion Magic
 	 * 
-	 * @param targetPos The Position for the elevator to be moved to, not to be higher than MAX_HEIGHT or lower than MIN_HEIGHT in RobotMap.Elevator
+	 * @param targetPos The Position in feet for the elevator to be moved to, not to be higher than MAX_HEIGHT or lower than MIN_HEIGHT in 
+	 * 					RobotMap.Elevator
 	 */
-    public ElevatorMotionMagicCommand(int targetPos) {
-    	this.targetPos = targetPos;
+    public ElevatorMotionMagicCommand(double targetPos) {
         requires(Robot.elevator);
+    	this.targetPos = Conversions.feetToTicks(targetPos, RobotMap.Elevator.SPROCKET_DIAMETER);
     }
 
     protected void initialize() {
@@ -40,7 +41,7 @@ public class ElevatorMotionMagicCommand extends Command {
     	}
     	else
     	{
-    		
+    		System.out.println("The target position is not within the soft limits");
     	}
     }
 

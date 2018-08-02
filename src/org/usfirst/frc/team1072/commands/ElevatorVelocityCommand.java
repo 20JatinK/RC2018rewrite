@@ -3,6 +3,7 @@ package org.usfirst.frc.team1072.commands;
 import org.usfirst.frc.team1072.robot.OI;
 import org.usfirst.frc.team1072.robot.Robot;
 import org.usfirst.frc.team1072.robot.RobotMap;
+import org.usfirst.frc.team1072.robot.RobotMap.Conversions;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
@@ -12,12 +13,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * Command to run the elevator at a velocity controlled by the right Joystick using Velocity PID
  */
-public class ElevatorVelocityPIDCommand extends Command {
+public class ElevatorVelocityCommand extends Command {
 
 	/**
 	 * Command to run the elevator at a velocity controlled by the right Joystick using Velocity PID
 	 */
-    public ElevatorVelocityPIDCommand() {
+    public ElevatorVelocityCommand() {
         requires(Robot.elevator);
     }
 
@@ -30,10 +31,9 @@ public class ElevatorVelocityPIDCommand extends Command {
     protected void execute() {
 		double rightY = OI.controller.getRightY();
 		
-		double multiplier = RobotMap.Elevator.MAX_VELOCITY;
-		multiplier *= 0.1; //ft per 100 ms 
-		multiplier /= (RobotMap.Elevator.SPROCKET_DIAMETER * Math.PI)/12.0; //rotations per 100ms
-		multiplier *= 4096; //ticks per 100ms
+		double multiplier = Conversions.ftPerSToTicksPer100Ms(
+								RobotMap.Elevator.MAX_VELOCITY, 
+								RobotMap.Elevator.SPROCKET_DIAMETER);
 		
 		double targetVelocity = multiplier * rightY;
 		
