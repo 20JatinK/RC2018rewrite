@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DrivetrainVelocityCommand extends Command {
 
+	/**
+	 * Command to drive the robot at a velocity using Velocity PID controlled by the left Joystick
+	 */
     public DrivetrainVelocityCommand() {
         requires(Robot.drivetrain);
     }

@@ -11,6 +11,9 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ * Subsystem to control the Victors, Talons, and Encoders in the Elevator
+ */
 public class Elevator extends Subsystem {
 
 	private static Elevator instance;
@@ -25,22 +28,23 @@ public class Elevator extends Subsystem {
 		bottomLeftVictor = new VictorSPX(RobotMap.Elevator.VICTOR_BOTTOMLEFT_ID);
 	}
 	
+	/**
+	 * Returns the Talon in the Elevator (On the Bottom Right of the Elevator)
+	 * 
+	 * @return The Elevator Talon
+	 */
 	public TalonSRX getTalon() {
 		return talon;
 	}
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new ElevatorMotionMagicCommand());
+		setDefaultCommand(new ElevatorVelocityPIDCommand());
 	}
 	
-	public static Elevator getInstance() {
-		if (instance == null) {
-			instance = new Elevator();
-		}
-		return instance;
-	}
-	
+	/**
+	 * Configures Current Limits for Elevator
+	 */
 	public void configureCurrentLimits() {
 		getTalon().configPeakCurrentLimit(RobotMap.Elevator.CURRENT_PEAK_LIMIT, 10);
 		getTalon().configPeakCurrentDuration(RobotMap.Elevator.CURRENT_PEAK_DURATION, 10); 
@@ -48,11 +52,17 @@ public class Elevator extends Subsystem {
 		getTalon().enableCurrentLimit(true);
 	}
 	
+	/**
+	 * Configures Voltage Compensation for Elevator
+	 */
 	public void configureVoltageComp() {
 		getTalon().configVoltageCompSaturation(RobotMap.VOLT_COMP, RobotMap.TIMEOUT);
 		getTalon().enableVoltageCompensation(true); 
 	}
 	
+	/**
+	 * Configures Encoder for Elevator
+	 */
 	public void configureEncoder() {
 		getTalon().configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 
 			RobotMap.PRIMARY_PID_LOOP, RobotMap.TIMEOUT);
@@ -60,13 +70,18 @@ public class Elevator extends Subsystem {
 		getTalon().setSelectedSensorPosition(0, RobotMap.PRIMARY_PID_LOOP, RobotMap.TIMEOUT);
 	}
 	
+	/**
+	 * Configures Soft Limits for Elevator
+	 */
 	public void configureSoftLimits() {
 		getTalon().configForwardSoftLimitEnable(true, RobotMap.TIMEOUT);
 		getTalon().configReverseSoftLimitEnable(true, RobotMap.TIMEOUT);
 		getTalon().configForwardSoftLimitThreshold(RobotMap.Elevator.MAX_HEIGHT, RobotMap.TIMEOUT);
 		getTalon().configReverseSoftLimitThreshold(RobotMap.Elevator.MIN_HEIGHT, RobotMap.TIMEOUT);
 	}
-	
+	/**
+	 * Configures PID constants and Closed Loop Ramping for Elevator
+	 */
 	public void configurePID() {
 		getTalon().config_kF(RobotMap.Elevator.VELOCITY_PID_SLOT, RobotMap.Elevator.VELOCITY_KF, RobotMap.TIMEOUT);
 		
@@ -78,6 +93,9 @@ public class Elevator extends Subsystem {
 		getTalon().configClosedloopRamp(RobotMap.Elevator.VOLTAGE_RAMP_RATE, RobotMap.TIMEOUT);
 	}
 	
+	/**
+	 * Configures Victors in the Elevator
+	 */
 	public void configVictors() {
 		bottomLeftVictor.follow(talon);
 		topLeftVictor.follow(talon);
@@ -86,5 +104,17 @@ public class Elevator extends Subsystem {
 		bottomLeftVictor.setInverted(true);
 		topLeftVictor.setInverted(false);
 		topRightVictor.setInverted(false);
+	}
+	
+	/**
+	 * Gets the instance of Elevator if it already exists, otherwise instantiates one
+	 * 
+	 * @return an instance of Elevator
+	 */
+	public static Elevator getInstance() {
+		if (instance == null) {
+			instance = new Elevator();
+		}
+		return instance;
 	}
 }

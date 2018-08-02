@@ -13,6 +13,9 @@ public class ArcadeDriveCommand extends Command {
 
 	private static double Threshold = 0.1;
 	
+	/**
+	 * Command to control drivetrain using the left Joystick without closed looping
+	 */
 	public ArcadeDriveCommand() {
 		requires(Robot.drivetrain);
 	}

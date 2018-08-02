@@ -12,19 +12,22 @@ public class RaiseLowerCommand extends InstantCommand {
 
 	private DoubleSolenoid.Value value;
 	
+	/**
+	 * Command to toggle whether the intake is raised or flat
+	 */
     public RaiseLowerCommand() {
         super();
-		requires(Robot.intake);
+		requires(Robot.intakePn);
     }
 
     protected void initialize() {
-    	value = Robot.intake.getRaiseLower().get();
+    	value = Robot.intakePn.getRaiseLower().get();
 		
 		if (value == DoubleSolenoid.Value.kForward) {
-			Robot.intake.getRaiseLower().set(DoubleSolenoid.Value.kReverse);
+			Robot.intakePn.getRaiseLower().set(DoubleSolenoid.Value.kReverse);
 		}
 		else {
-			Robot.intake.getRaiseLower().set(DoubleSolenoid.Value.kForward);
+			Robot.intakePn.getRaiseLower().set(DoubleSolenoid.Value.kForward);
 		}
     }
 

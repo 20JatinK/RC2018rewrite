@@ -12,19 +12,22 @@ public class CompDecompCommand extends InstantCommand {
 
 	private DoubleSolenoid.Value value;
 	
+	/**
+	 * Command to toggle whether the intake is compressed or decompressed
+	 */
     public CompDecompCommand() {
         super();
-		requires(Robot.intake);
+		requires(Robot.intakePn);
     }
 
     protected void initialize() {
-    	value = Robot.intake.getCompDecomp().get();
+    	value = Robot.intakePn.getCompDecomp().get();
 		
 		if (value == DoubleSolenoid.Value.kForward) {
-			Robot.intake.getCompDecomp().set(DoubleSolenoid.Value.kReverse);
+			Robot.intakePn.getCompDecomp().set(DoubleSolenoid.Value.kReverse);
 		}
 		else {
-			Robot.intake.getCompDecomp().set(DoubleSolenoid.Value.kForward);
+			Robot.intakePn.getCompDecomp().set(DoubleSolenoid.Value.kForward);
 		}
     }
 

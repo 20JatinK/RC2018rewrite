@@ -10,11 +10,19 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Command to run the elevator at a velocity controlled by the right Joystick using Motion Magic
+ * Command to run the elevator at a velocity using Motion Magic
  */
 public class ElevatorMotionMagicCommand extends Command {
 
-    public ElevatorMotionMagicCommand() {
+	private int targetPos;
+	
+	/**
+	 * Command to run the elevator at a velocity using Motion Magic
+	 * 
+	 * @param targetPos The Position for the elevator to be moved to, not to be higher than MAX_HEIGHT or lower than MIN_HEIGHT in RobotMap.Elevator
+	 */
+    public ElevatorMotionMagicCommand(int targetPos) {
+    	this.targetPos = targetPos;
         requires(Robot.elevator);
     }
 
@@ -26,11 +34,14 @@ public class ElevatorMotionMagicCommand extends Command {
     }
 
     protected void execute() {
-    	double rightY = OI.controller.getRightY();
-		
-		double targetPosition = rightY * (RobotMap.Elevator.MAX_HEIGHT - RobotMap.Elevator.MIN_HEIGHT) + RobotMap.Elevator.MIN_HEIGHT;
-    	
-    	Robot.elevator.getTalon().set(ControlMode.MotionMagic, targetPosition, DemandType.ArbitraryFeedForward, RobotMap.Elevator.ARB_FEED_FORWARD);
+    	if (RobotMap.Elevator.MIN_HEIGHT < targetPos && targetPos > RobotMap.Elevator.MAX_HEIGHT) 
+    	{
+        	Robot.elevator.getTalon().set(ControlMode.MotionMagic, targetPos, DemandType.ArbitraryFeedForward, RobotMap.Elevator.ARB_FEED_FORWARD);
+    	}
+    	else
+    	{
+    		
+    	}
     }
 
     protected boolean isFinished() {

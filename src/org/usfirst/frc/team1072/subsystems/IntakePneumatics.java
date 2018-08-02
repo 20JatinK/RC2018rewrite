@@ -9,17 +9,17 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Intake extends Subsystem {
+/**
+ * Subsystem to control all solenoids in the Intake
+ */
+public class IntakePneumatics extends Subsystem {
 
-	private static Intake instance;
+	private static IntakePneumatics instance;
 	
-	private TalonSRX left, right;
 	private DoubleSolenoid raiseAndLower, compAndDecomp;
 	private Compressor compressor;
 	
-	private Intake() {
-		left = new TalonSRX(RobotMap.Intake.LEFT_TALON_ID);
-		right = new TalonSRX(RobotMap.Intake.RIGHT_TALON_ID);
+	private IntakePneumatics() {
 		compressor = new Compressor(RobotMap.Intake.COMPRESSOR_CHANNEL);
 		
 		raiseAndLower = new DoubleSolenoid(RobotMap.Intake.RAISE_CHANNEL, RobotMap.Intake.LOWER_CHANNEL);
@@ -28,38 +28,37 @@ public class Intake extends Subsystem {
 		raiseAndLower.set(DoubleSolenoid.Value.kForward);
 	}
 	
-	public TalonSRX getLeftTalon() {
-		return left;
-	}
-	
-	public TalonSRX getRightTalon() {
-		return right;
-	}
-	
+	/**
+	 * Returns the DoubleSolenoid used for raising or lowering the intake
+	 * 
+	 * @return The Raise/Lower DoubleSolenoid
+	 */
 	public DoubleSolenoid getRaiseLower() {
 		return raiseAndLower;
 	}
 	
+	/**
+	 * Returns the DoubleSolenoid used for compressing or decompressing the intake
+	 * 
+	 * @return The Compress/Decompress DoubleSolenoid
+	 */
 	public DoubleSolenoid getCompDecomp() {
 		return compAndDecomp;
 	}
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new IntakeOutakeCommand());
 	}
 	
-	public static Intake getInstance() {
+	/**
+	 * Gets the instance of IntakePneumatics if it already exists, otherwise instantiates one
+	 * 
+	 * @return an instance of IntakePneumatics
+	 */
+	public static IntakePneumatics getInstance() {
 		if (instance == null) {
-			instance = new Intake();
+			instance = new IntakePneumatics();
 		}
 		return instance;
-	}
-
-	public void configVoltageComp() {
-		getLeftTalon().configVoltageCompSaturation(RobotMap.VOLT_COMP, RobotMap.TIMEOUT);
-		getRightTalon().configVoltageCompSaturation(RobotMap.VOLT_COMP, RobotMap.TIMEOUT);
-		getLeftTalon().enableVoltageCompensation(true); 
-		getRightTalon().enableVoltageCompensation(true);
 	}
 }

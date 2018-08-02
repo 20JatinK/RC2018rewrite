@@ -9,38 +9,39 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Command to drive the robot to a position using Position PID
+ * Command to drive the robot to a position using Position PID, given a target position
  */
 public class DrivetrainPositionCommand extends Command {
 
-    public DrivetrainPositionCommand() {
+	private int targetPos;
+	
+	/**
+	 * Command to drive the robot to a position using Position PID, given a target position
+	 *
+	 * @param targetPos The position (in encoder units) for the Robot to move straight to
+	 */
+    public DrivetrainPositionCommand(int targetPos) {
         requires(Robot.drivetrain);
+        this.targetPos = targetPos;
     }
 
-    // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drivetrain.getLeft().selectProfileSlot(RobotMap.Drivetrain.POSITION_PID_SLOT, RobotMap.PRIMARY_PID_LOOP);
-		Robot.drivetrain.getRight().selectProfileSlot(RobotMap.Drivetrain.POSITION_PID_SLOT, RobotMap.PRIMARY_PID_LOOP);
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-		double leftY = OI.controller.getLeftY();
 		
-		Robot.drivetrain.setBoth(ControlMode.Position, leftY * RobotMap.Drivetrain.MAX_DISTANCE_FOR_POSITION_PID);
+		if (targetPos < RobotMap.Drivetrain.MAX_DISTANCE_FOR_POSITION_PID)
+    	{
+			Robot.drivetrain.getLeft().selectProfileSlot(RobotMap.Drivetrain.POSITION_PID_SLOT, RobotMap.PRIMARY_PID_LOOP);
+			Robot.drivetrain.getRight().selectProfileSlot(RobotMap.Drivetrain.POSITION_PID_SLOT, RobotMap.PRIMARY_PID_LOOP);
+			
+    		Robot.drivetrain.setBoth(ControlMode.Position, targetPos);
+    	}
+    	else 
+    	{
+    		System.out.println("The target position exceeds the maximum distance allowed for Position PID");
+    	}
     }
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
-
-    // Called once after isFinished returns true
-    protected void end() {
-    }
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+	@Override
+	protected boolean isFinished() {
+		return false;
+	}
 }

@@ -46,8 +46,14 @@ public class OI {
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
+	/**
+	 * Xbox Controller
+	 */
 	public static GamepadWrapper controller = new GamepadWrapper(0);
 	
+	/**
+	 * Assigns Commands to Buttons
+	 */
 	public static void initBindings() {
 		controller.getButtonY().whenPressed(new RaiseLowerCommand());
 		controller.getButtonX().whenPressed(new CompDecompCommand());

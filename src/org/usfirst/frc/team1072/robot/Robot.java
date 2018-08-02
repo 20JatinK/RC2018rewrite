@@ -2,7 +2,8 @@ package org.usfirst.frc.team1072.robot;
 
 import org.usfirst.frc.team1072.subsystems.Drivetrain;
 import org.usfirst.frc.team1072.subsystems.Elevator;
-import org.usfirst.frc.team1072.subsystems.Intake;
+import org.usfirst.frc.team1072.subsystems.IntakeRollers;
+import org.usfirst.frc.team1072.subsystems.IntakePneumatics;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
@@ -11,15 +12,33 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * Main class which controls the robot in Autonomous or Tele-operated periods
+ */
 public class Robot extends TimedRobot {
 
-	// Declare/Instantiate subsystems
+	/**
+	 * Instance of Drivetrain
+	 */
 	public static final Drivetrain drivetrain = Drivetrain.getInstance();
+	
+	/**
+	 * Instance of Elevator
+	 */
 	public static final Elevator elevator = Elevator.getInstance();
-	public static final Intake intake = Intake.getInstance();
+	
+	/**
+	 * Instance of IntakePneumatics
+	 */
+	public static final IntakePneumatics intakePn = IntakePneumatics.getInstance();
+	
+	/**
+	 * Instance of IntakeRollers
+	 */
+	public static final IntakeRollers intakeRo = IntakeRollers.getInstance();
 	
 	public void robotInit() {
-		OI.initBindings(); // Initialize command bindings
+		OI.initBindings();
 	}
 	
 	public void autonInit() {
@@ -41,6 +60,9 @@ public class Robot extends TimedRobot {
 		
 	}
 	
+	/**
+	 * Default configurations for all subsystems to be applied on Robot startup
+	 */
 	public void defaultInit() {
 		drivetrain.configVoltageComp();
 		drivetrain.configureEncoders();
@@ -55,7 +77,7 @@ public class Robot extends TimedRobot {
 		elevator.configureCurrentLimits();
 		elevator.configurePID();
 		
-		intake.configVoltageComp();
+		intakeRo.configVoltageComp();
 	}
 
 }

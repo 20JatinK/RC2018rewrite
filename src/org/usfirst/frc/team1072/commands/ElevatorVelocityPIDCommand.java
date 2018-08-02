@@ -14,6 +14,9 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ElevatorVelocityPIDCommand extends Command {
 
+	/**
+	 * Command to run the elevator at a velocity controlled by the right Joystick using Velocity PID
+	 */
     public ElevatorVelocityPIDCommand() {
         requires(Robot.elevator);
     }

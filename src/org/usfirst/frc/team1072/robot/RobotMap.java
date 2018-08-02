@@ -1,22 +1,32 @@
 package org.usfirst.frc.team1072.robot;
 
+/**
+ * Class to hold all general and subsystem related constants
+ */
 public class RobotMap {
 	
     public static final int PRIMARY_PID_LOOP = 0;
     public static final int TIMEOUT = 10;
     public static final double VOLT_COMP = 11.0;
+    
+    /**
+     * Class to hold Drivetrain-specific constants
+     */
 	public static class Drivetrain {
 		
-		/**
-		 * 4 Cim motors, 2 per gearbox run the drivetrain
-		 */
 		public static final int LEFT_TALON_ID = 5, RIGHT_TALON_ID = 2, LEFT_VICTOR_ID = 4, RIGHT_VICTOR_ID = 3;
 		
 		public static final boolean INVERTED_ENCODERS = false;
 		
-		public static final int MAX_DRIVE_VELOCITY = 6; //ft per s
+		/**
+		 * Max velocity in ft/s
+		 */
+		public static final int MAX_DRIVE_VELOCITY = 6;
 		
-		public static final double WHEEL_DIAMETER = 3.95; //in
+		/**
+		 * Wheel Diameter in inches
+		 */
+		public static final double WHEEL_DIAMETER = 3.95;
 		
 		public static final int POSITION_PID_SLOT = 0;
 		public static final int VELOCITY_PID_SLOT = 1;
@@ -50,15 +60,35 @@ public class RobotMap {
 		public static final double VELOCITY_KF_LEFT = 0.23; 
 		public static final double VELOCITY_KF_RIGHT = 0.23; 
 		
-	    
+	    /**
+	     * Nominal output in percent output
+	     */
 	    public static final double NOMINAL_OUTPUT_LEFT = 0.04;
+	    
+	    /**
+	     * Nominal output in percent output
+	     */
 	    public static final double NOMINAL_OUTPUT_RIGHT = 0.04;
+	    
+	    /**
+	     * Peak output in percent output
+	     */
 	    public static final double PEAK_OUTPUT_LEFT = 1;
+	    
+	    /**
+	     * Peak output in percent output
+	     */
 	    public static final double PEAK_OUTPUT_RIGHT = 1;
 	    
-	    public static final int MAX_DISTANCE_FOR_POSITION_PID = 10000; //in encoder units
+	    /**
+	     * Maximum distance (in encoder units) robot can drive away from starting point
+	     */
+	    public static final int MAX_DISTANCE_FOR_POSITION_PID = 10000;
 	}
 	
+	/**
+     * Class to hold ELevator-specific constants
+     */
 	public static class Elevator {
 		/**
 		 * Talon is bottom right
@@ -76,25 +106,65 @@ public class RobotMap {
 		public static final double MOTION_MAGIC_KI = 0.0001;
 		public static final double MOTION_MAGIC_KD = 18;
 		
-		public static final double VOLTAGE_RAMP_RATE = 0.75; //seconds
+		/**
+		 * Voltage Ramp Rate in seconds between neutral and full
+		 */
+		public static final double VOLTAGE_RAMP_RATE = 0.75;
 		
+		/**
+		 * Max Height in encoder units
+		 */
 		public static final int MAX_HEIGHT = 20000;
+		
+		/**
+		 * Min Height in encoder units
+		 */
 		public static final int MIN_HEIGHT = 2000;
 		
+		/**
+		 * Feed Forward in percent output
+		 */
 		public static final double ARB_FEED_FORWARD = 0.15;
 		
-		public static final int MAX_VELOCITY = 1; //ft per s, maximum is 2.5
-		public static final double SPROCKET_DIAMETER = 1.433; //in
+		/**
+		 * Max Velocity in ft/s 
+		 */
+		public static final int MAX_VELOCITY = 1; //should never be higher than 2.5
+		
+		/**
+		 * Sprocket Diameter in inches
+		 */
+		public static final double SPROCKET_DIAMETER = 1.433;
 
+		/**
+		 * Current Peak Limit in Amps
+		 */
 		public static final int CURRENT_PEAK_LIMIT = 10;
-		public static final int CURRENT_PEAK_DURATION = 40; //ms
+		
+		/**
+		 * Current Peak Duration in ms
+		 */
+		public static final int CURRENT_PEAK_DURATION = 40;
+		
+		/**
+		 * Current continuous Limit in Amps
+		 */
 		public static final int CURRENT_CONTINUOUS_LIMIT = 5;
 
+		/**
+		 * Motion Magic Cruise Velocity in sensor units per 100 ms
+		 */
 		public static final int MOTION_MAGIC_CRUISE_VEL = 650;
 
+		/**
+		 * Motion Magic Acceleration in sensor units per 100 ms
+		 */
 		public static final int MOTION_MAGIC_ACCEL = 2250;
 	}
 	
+	/**
+     * Class to hold Intake-specific constants
+     */
 	public static class Intake {
 		public static final int LEFT_TALON_ID = 6, RIGHT_TALON_ID = 1;
 		
