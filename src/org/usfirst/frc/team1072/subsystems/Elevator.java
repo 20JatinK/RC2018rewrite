@@ -38,16 +38,16 @@ public class Elevator extends Subsystem {
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new ElevatorVelocityCommand());
+//		setDefaultCommand(new ElevatorVelocityCommand());
 	}
 	
 	/**
 	 * Configures Current Limits for Elevator
 	 */
 	public void configureCurrentLimits() {
-		getTalon().configPeakCurrentLimit(RobotMap.Elevator.CURRENT_PEAK_LIMIT, 10);
-		getTalon().configPeakCurrentDuration(RobotMap.Elevator.CURRENT_PEAK_DURATION, 10); 
-		getTalon().configContinuousCurrentLimit(RobotMap.Elevator.CURRENT_CONTINUOUS_LIMIT, 10);
+		getTalon().configPeakCurrentLimit(RobotMap.Elevator.CURRENT_PEAK_LIMIT, RobotMap.TIMEOUT);
+		getTalon().configPeakCurrentDuration(RobotMap.Elevator.CURRENT_PEAK_DURATION, RobotMap.TIMEOUT); 
+		getTalon().configContinuousCurrentLimit(RobotMap.Elevator.DEFAULT_CURRENT_CONTINUOUS_LIMIT, RobotMap.TIMEOUT);
 		getTalon().enableCurrentLimit(true);
 	}
 	

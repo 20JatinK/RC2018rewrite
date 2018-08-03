@@ -60,6 +60,11 @@ public class RobotMap {
 		public static final double VELOCITY_KF_LEFT = 0.23; 
 		public static final double VELOCITY_KF_RIGHT = 0.23; 
 		
+		/**
+		 * Range around target position acceptable to end Position PID
+		 */
+		public static final double POSITION_PID_TOLERANCE = 300;
+		
 	    /**
 	     * Nominal output in percent output
 	     */
@@ -83,7 +88,7 @@ public class RobotMap {
 	    /**
 	     * Maximum distance (in feet) robot can drive away from starting point
 	     */
-	    public static final double MAX_DISTANCE_FOR_POSITION_PID = 2.5;
+	    public static final double MAX_DISTANCE_FOR_POSITION_PID = 4.0;
 	}
 	
 	/**
@@ -101,10 +106,15 @@ public class RobotMap {
 		
 		public static final double VELOCITY_KF = 0.54;
 		
-		public static final double MOTION_MAGIC_KF = 0.54;
-		public static final double MOTION_MAGIC_KP = 0.1;
-		public static final double MOTION_MAGIC_KI = 0.0001;
-		public static final double MOTION_MAGIC_KD = 18;
+		public static final double MOTION_MAGIC_KF = 0.45;
+		public static final double MOTION_MAGIC_KP = 0.3; //0.1
+		public static final double MOTION_MAGIC_KI = 0.0001; //0.0001
+		public static final double MOTION_MAGIC_KD = 0.0; //18
+		
+		/**
+		 * Range around target position acceptable to end Motion Magic
+		 */
+		public static final double MOTION_MAGIC_TOLERANCE = 300;
 		
 		/**
 		 * Voltage Ramp Rate in seconds between neutral and full
@@ -114,12 +124,12 @@ public class RobotMap {
 		/**
 		 * Max Height in encoder units
 		 */
-		public static final int MAX_HEIGHT = 20000;
+		public static final int MAX_HEIGHT = 25000;
 		
 		/**
 		 * Min Height in encoder units
 		 */
-		public static final int MIN_HEIGHT = 2000;
+		public static final int MIN_HEIGHT = 1500;
 		
 		/**
 		 * Feed Forward in percent output
@@ -132,9 +142,9 @@ public class RobotMap {
 		public static final int MAX_VELOCITY = 1; //should never be higher than 2.5
 		
 		/**
-		 * Sprocket Diameter in inches
+		 * Sprocket Diameter in inches, multiplied by 2 to compensate for difference between actual position and encoder reading
 		 */
-		public static final double SPROCKET_DIAMETER = 1.433;
+		public static final double SPROCKET_DIAMETER = 1.433 * 2;
 
 		/**
 		 * Current Peak Limit in Amps
@@ -149,17 +159,22 @@ public class RobotMap {
 		/**
 		 * Current continuous Limit in Amps
 		 */
-		public static final int CURRENT_CONTINUOUS_LIMIT = 5;
+		public static final int DEFAULT_CURRENT_CONTINUOUS_LIMIT = 5;
+		
+		/**
+		 * Current continuous Limit in Amps for Motion Magic
+		 */
+		public static final int MOTION_MAGIC_CURRENT_CONTINUOUS_LIMIT = 10;
 
 		/**
 		 * Motion Magic Cruise Velocity in sensor units per 100 ms
 		 */
-		public static final int MOTION_MAGIC_CRUISE_VEL = 650;
+		public static final int MOTION_MAGIC_CRUISE_VEL = 500;
 
 		/**
 		 * Motion Magic Acceleration in sensor units per 100 ms
 		 */
-		public static final int MOTION_MAGIC_ACCEL = 2250;
+		public static final int MOTION_MAGIC_ACCEL = 1000;
 	}
 	
 	/**
@@ -182,6 +197,7 @@ public class RobotMap {
 		 * 
 		 * @param feet The distance in feet to be converted to encoder units
 		 * @param wheelDiameter The diameter in inches of the wheels which the encoder corresponds to
+		 * @param isElevator True if for elevator
 		 * @return The number of encoder units in the given amount of feet
 		 */
 		public static double feetToTicks(double feet, double wheelDiameter) {
@@ -189,6 +205,13 @@ public class RobotMap {
 			ticks /= wheelDiameter / 12.0 * Math.PI; //feet to rotations
 			ticks *= 4096; //rotations to ticks
 			return ticks;
+		}
+		
+		public static double ticksToFeet(double ticks, double wheelDiameter) {
+			double feet = ticks;
+			feet *= wheelDiameter / 12.0 * Math.PI; //feet to rotations
+			feet /= 4096; //rotations to ticks
+			return feet;
 		}
 		
 		/**

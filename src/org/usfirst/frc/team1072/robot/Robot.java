@@ -4,11 +4,11 @@ import org.usfirst.frc.team1072.subsystems.Drivetrain;
 import org.usfirst.frc.team1072.subsystems.Elevator;
 import org.usfirst.frc.team1072.subsystems.IntakeRollers;
 import org.usfirst.frc.team1072.subsystems.IntakePneumatics;
-
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-
+import org.usfirst.frc.team1072.commands.AutonomousCommandGroup;
 import org.usfirst.frc.team1072.robot.OI;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -41,8 +41,15 @@ public class Robot extends TimedRobot {
 		OI.initBindings();
 	}
 	
-	public void autonInit() {
+	public void autonomousInit() {
 		defaultInit();
+		
+		AutonomousCommandGroup autonCommand = new AutonomousCommandGroup();
+		autonCommand.start();
+	}
+	
+	public void autonomousPeriodic() {
+		Scheduler.getInstance().run();
 	}
 	
 	public void teleopInit() {
@@ -52,12 +59,11 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		
-		double current = Robot.elevator.getTalon().getOutputCurrent();
 		int error = Robot.elevator.getTalon().getClosedLoopError(0);
+		double current = Robot.elevator.getTalon().getOutputCurrent();
 		
 		SmartDashboard.putNumber("Error", error);
 		SmartDashboard.putNumber("Current", current);
-		
 	}
 	
 	/**

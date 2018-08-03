@@ -9,10 +9,12 @@
 package org.usfirst.frc.team1072.robot;
 
 import org.usfirst.frc.team1072.commands.CompDecompCommand;
+import org.usfirst.frc.team1072.commands.ElevatorMotionMagicCommand;
 import org.usfirst.frc.team1072.commands.RaiseLowerCommand;
+import org.usfirst.frc.team1072.commands.TestCommand;
+import org.usfirst.frc.team1072.harkerrobolib.wrappers.DPadButtonWrapper;
 import org.usfirst.frc.team1072.harkerrobolib.wrappers.GamepadWrapper;
-
-import edu.wpi.first.wpilibj.buttons.Button;
+import org.usfirst.frc.team1072.robot.RobotMap.Conversions;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -51,11 +53,21 @@ public class OI {
 	 */
 	public static GamepadWrapper controller = new GamepadWrapper(0);
 	
+	public static DPadButtonWrapper dPadUp = new DPadButtonWrapper(controller, 0);
+	public static DPadButtonWrapper dPadRight = new DPadButtonWrapper(controller, 90);
+	public static DPadButtonWrapper dPadDown = new DPadButtonWrapper(controller, 180);
+	public static DPadButtonWrapper dPadLeft = new DPadButtonWrapper(controller, 270);
+	
 	/**
 	 * Assigns Commands to Buttons
 	 */
 	public static void initBindings() {
 		controller.getButtonY().whenPressed(new RaiseLowerCommand());
 		controller.getButtonX().whenPressed(new CompDecompCommand());
+		
+		dPadUp.whenPressed(new ElevatorMotionMagicCommand(1.5));
+		dPadDown.whenPressed(new ElevatorMotionMagicCommand(Conversions.ticksToFeet(
+																RobotMap.Elevator.MIN_HEIGHT,
+																RobotMap.Elevator.SPROCKET_DIAMETER)));
 	}
 }

@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1072.subsystems;
 
-import org.usfirst.frc.team1072.commands.IntakeOutakeCommand;
 import org.usfirst.frc.team1072.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;

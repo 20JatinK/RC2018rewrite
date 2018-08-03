@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj.command.Command;
  * Command to run the elevator at a velocity using Motion Magic
  */
 public class ElevatorMotionMagicCommand extends Command {
-
+	
+	private boolean finished;
 	private double targetPos;
 	
 	/**
@@ -25,33 +26,52 @@ public class ElevatorMotionMagicCommand extends Command {
     public ElevatorMotionMagicCommand(double targetPos) {
         requires(Robot.elevator);
     	this.targetPos = Conversions.feetToTicks(targetPos, RobotMap.Elevator.SPROCKET_DIAMETER);
+    	finished = false;
     }
 
     protected void initialize() {
-    	Robot.elevator.getTalon().selectProfileSlot(RobotMap.Elevator.MOTION_MAGIC_SLOT, RobotMap.PRIMARY_PID_LOOP);
-    	
-    	Robot.elevator.getTalon().configMotionCruiseVelocity(RobotMap.Elevator.MOTION_MAGIC_CRUISE_VEL, RobotMap.TIMEOUT);
-    	Robot.elevator.getTalon().configMotionAcceleration(RobotMap.Elevator.MOTION_MAGIC_ACCEL, RobotMap.TIMEOUT);
-    }
-
-    protected void execute() {
-    	if (RobotMap.Elevator.MIN_HEIGHT < targetPos && targetPos > RobotMap.Elevator.MAX_HEIGHT) 
+    	System.out.println("Motion Magic Started");
+    	 	
+    	if (RobotMap.Elevator.MIN_HEIGHT <= targetPos && targetPos <= RobotMap.Elevator.MAX_HEIGHT) 
     	{
+    		Robot.elevator.getTalon().configContinuousCurrentLimit(RobotMap.Elevator.MOTION_MAGIC_CURRENT_CONTINUOUS_LIMIT, RobotMap.TIMEOUT);
+    		Robot.elevator.getTalon().enableCurrentLimit(true);
+    		
+    		Robot.elevator.getTalon().selectProfileSlot(RobotMap.Elevator.MOTION_MAGIC_SLOT, RobotMap.PRIMARY_PID_LOOP);
+        	Robot.elevator.getTalon().configMotionCruiseVelocity(RobotMap.Elevator.MOTION_MAGIC_CRUISE_VEL, RobotMap.TIMEOUT);
+        	Robot.elevator.getTalon().configMotionAcceleration(RobotMap.Elevator.MOTION_MAGIC_ACCEL, RobotMap.TIMEOUT);
+        	
         	Robot.elevator.getTalon().set(ControlMode.MotionMagic, targetPos, DemandType.ArbitraryFeedForward, RobotMap.Elevator.ARB_FEED_FORWARD);
     	}
     	else
     	{
-    		System.out.println("The target position is not within the soft limits");
+    		System.out.println("The target position is not within the soft limits \n" + targetPos);
     	}
     }
 
+    protected void execute() {
+    	double sensor = Robot.elevator.getTalon().getSelectedSensorPosition(0);
+    	finished = (sensor >= targetPos - RobotMap.Elevator.MOTION_MAGIC_TOLERANCE) && 
+    				(sensor <= targetPos + RobotMap.Elevator.MOTION_MAGIC_TOLERANCE);
+    }
+
     protected boolean isFinished() {
-        return false;
+        return finished;
     }
 
     protected void end() {
+    	Robot.elevator.getTalon().configContinuousCurrentLimit(RobotMap.Elevator.DEFAULT_CURRENT_CONTINUOUS_LIMIT, RobotMap.TIMEOUT);
+		Robot.elevator.getTalon().enableCurrentLimit(true);
+    	
+    	Robot.elevator.getTalon().set(ControlMode.Disabled, 0);
+    	System.out.println("Elevator Motion Magic finished");
     }
 
     protected void interrupted() {
+    	Robot.elevator.getTalon().configContinuousCurrentLimit(RobotMap.Elevator.DEFAULT_CURRENT_CONTINUOUS_LIMIT, RobotMap.TIMEOUT);
+		Robot.elevator.getTalon().enableCurrentLimit(true);
+    	
+    	Robot.elevator.getTalon().set(ControlMode.Disabled, 0);
+    	System.out.println("Elevator Motion Magic interrupted");
     }
 }

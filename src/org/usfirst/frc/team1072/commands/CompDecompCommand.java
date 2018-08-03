@@ -21,6 +21,7 @@ public class CompDecompCommand extends InstantCommand {
     }
 
     protected void initialize() {
+    	System.out.println("Compress/Decompress Started");
     	value = Robot.intakePn.getCompDecomp().get();
 		
 		if (value == DoubleSolenoid.Value.kForward) {
@@ -29,6 +30,7 @@ public class CompDecompCommand extends InstantCommand {
 		else {
 			Robot.intakePn.getCompDecomp().set(DoubleSolenoid.Value.kForward);
 		}
+		System.out.println("Compress/Decompress Finished");
     }
 
 }

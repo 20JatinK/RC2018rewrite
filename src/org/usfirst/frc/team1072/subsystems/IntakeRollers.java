@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1072.subsystems;
 
-import org.usfirst.frc.team1072.commands.IntakeOutakeCommand;
+import org.usfirst.frc.team1072.commands.ManualIntakeOutakeCommand;
 import org.usfirst.frc.team1072.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -21,7 +21,7 @@ public class IntakeRollers extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
-        setDefaultCommand(new IntakeOutakeCommand());
+        setDefaultCommand(new ManualIntakeOutakeCommand());
     }
     
     /**

@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DrivetrainPositionCommand extends Command {
 
+	private boolean finished;
 	private double targetPos;
 	private double wheelDiameter;
 	
@@ -25,9 +26,12 @@ public class DrivetrainPositionCommand extends Command {
         requires(Robot.drivetrain);
         wheelDiameter = RobotMap.Drivetrain.WHEEL_DIAMETER;
         this.targetPos = Conversions.feetToTicks(targetPos, wheelDiameter);
+        finished = false;
     }
 
     protected void initialize() {
+    	System.out.println("Position PID started");
+    	
 		double maxDistanceInTicks = Conversions.feetToTicks(
 										RobotMap.Drivetrain.MAX_DISTANCE_FOR_POSITION_PID,
 										wheelDiameter);
@@ -45,8 +49,25 @@ public class DrivetrainPositionCommand extends Command {
     	}
     }
 
+    protected void execute() {
+    	double sensor = Robot.drivetrain.getLeft().getSelectedSensorPosition(0);
+    	
+    	finished = (sensor >= targetPos - RobotMap.Drivetrain.POSITION_PID_TOLERANCE) && 
+    				(sensor <= targetPos + RobotMap.Drivetrain.POSITION_PID_TOLERANCE);
+    }
+    
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return finished;
+	}
+	
+	protected void isInterrupted() {
+		Robot.drivetrain.setBoth(ControlMode.Disabled, 0);
+		System.out.println("Position PID interrupted");
+	}
+	
+	protected void end() {
+		Robot.drivetrain.setBoth(ControlMode.Disabled, 0);
+		System.out.println("Position PID finished");
 	}
 }

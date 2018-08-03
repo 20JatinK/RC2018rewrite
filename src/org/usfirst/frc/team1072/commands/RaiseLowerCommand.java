@@ -21,6 +21,7 @@ public class RaiseLowerCommand extends InstantCommand {
     }
 
     protected void initialize() {
+    	System.out.println("Raise/Lower started");
     	value = Robot.intakePn.getRaiseLower().get();
 		
 		if (value == DoubleSolenoid.Value.kForward) {
@@ -29,6 +30,7 @@ public class RaiseLowerCommand extends InstantCommand {
 		else {
 			Robot.intakePn.getRaiseLower().set(DoubleSolenoid.Value.kForward);
 		}
+		System.out.println("Raise/Lower finished");
     }
 
 }
